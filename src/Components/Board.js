@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Square } from "./Square";
+import { User } from "./User";
 
 export const Board = () => {
   const [state, setState] = useState(Array(9).fill(null));
   const [isXturn, setIsXturn] = useState(true);
+  const [xWins, setXwins] = useState(0)
+  const [oWins, setOwins] = useState(0)
 
   const handleClick = (index) => {
     if (state[index] !== null) {
@@ -14,77 +17,9 @@ export const Board = () => {
     setState(copyState);
     setIsXturn(!isXturn);
 
-    if (
-      copyState[0] !== null &&
-      copyState[0] === copyState[1] &&
-      copyState[0] === copyState[2]
-    ) {
-      console.log(copyState[0], "wins");
-    }
-    if (
-      copyState[3] !== null &&
-      copyState[3] === copyState[4] &&
-      copyState[3] === copyState[5]
-    ) {
-      console.log(copyState[3], "wins");
-    }
-    if (
-      copyState[6] !== null &&
-      copyState[6] === copyState[7] &&
-      copyState[6] === copyState[8]
-    ) {
-      console.log(copyState[6], "wins");
-    }
 
-    //   vertically
-    if (
-      copyState[0] !== null &&
-      copyState[0] === copyState[3] &&
-      copyState[0] === copyState[6]
-    ) {
-      console.log(copyState[0], "wins");
-    } else if (
-      copyState[1] !== null &&
-      copyState[1] === copyState[4] &&
-      copyState[1] === copyState[7]
-    ) {
-      console.log(copyState[1], "wins");
-    } else if (
-      copyState[2] !== null &&
-      copyState[2] === copyState[5] &&
-      copyState[2] === copyState[8]
-    ) {
-      console.log(copyState[2], "wins");
-    }
-
-    //   diagonal
-    else if (
-      copyState[0] !== null &&
-      copyState[0] === copyState[4] &&
-      copyState[0] === copyState[8]
-    ) {
-      console.log(copyState[0], "wins");
-    } else if (
-      copyState[2] !== null &&
-      copyState[2] === copyState[4] &&
-      copyState[2] === copyState[6]
-    ) {
-      console.log(copyState[0], "wins");
-    } else {
-      if (
-        copyState[0] !== null &&
-        copyState[1] !== null &&
-        copyState[2] !== null &&
-        copyState[3] !== null &&
-        copyState[4] !== null &&
-        copyState[5] !== null &&
-        copyState[6] !== null &&
-        copyState[7] !== null &&
-        copyState[8] !== null
-      ) {
-        console.log("Restart");
-      }
-    }
+   winningLogic(copyState) 
+ 
   };
 
   //   const winnerCheck = () => {
@@ -108,6 +43,85 @@ export const Board = () => {
   //     }
   //   }
 
+  const winningLogic = checkState =>{
+    if (
+      checkState[0] !== null &&
+      checkState[0] === checkState[1] &&
+      checkState[0] === checkState[2]
+    ) {
+      if(checkState[0] === "x"){
+        setXwins( xWins +1)
+      }else{
+        setOwins(oWins +1)
+      }
+    }
+
+    if (
+      checkState[3] !== null &&
+      checkState[3] === checkState[4] &&
+      checkState[3] === checkState[5]
+    ) {
+      console.log(checkState[3], "wins");
+    }
+    if (
+      checkState[6] !== null &&
+      checkState[6] === checkState[7] &&
+      checkState[6] === checkState[8]
+    ) {
+      console.log(checkState[6], "wins");
+    }
+
+    //   vertically
+    if (
+      checkState[0] !== null &&
+      checkState[0] === checkState[3] &&
+      checkState[0] === checkState[6]
+    ) {
+      console.log(checkState[0], "wins");
+    } else if (
+      checkState[1] !== null &&
+      checkState[1] === checkState[4] &&
+      checkState[1] === checkState[7]
+    ) {
+      console.log(checkState[1], "wins");
+    } else if (
+      checkState[2] !== null &&
+      checkState[2] === checkState[5] &&
+      checkState[2] === checkState[8]
+    ) {
+      console.log(checkState[2], "wins");
+    }
+
+    //   diagonal
+    else if (
+      checkState[0] !== null &&
+      checkState[0] === checkState[4] &&
+      checkState[0] === checkState[8]
+    ) {
+      console.log(checkState[0], "wins");
+    } else if (
+      checkState[2] !== null &&
+      checkState[2] === checkState[4] &&
+      checkState[2] === checkState[6]
+    ) {
+      console.log(checkState[0], "wins");
+    } else {
+      if (
+        checkState[0] !== null &&
+        checkState[1] !== null &&
+        checkState[2] !== null &&
+        checkState[3] !== null &&
+        checkState[4] !== null &&
+        checkState[5] !== null &&
+        checkState[6] !== null &&
+        checkState[7] !== null &&
+        checkState[8] !== null
+      ) {
+        console.log("Restart");
+      }
+    }
+  } 
+
   return (
     <div className="flex flex-col justify-center items-center w-[20rem] mt-4">
       <div className="board-row flex">
@@ -125,6 +139,7 @@ export const Board = () => {
         <Square value={state[7]} onClick={() => handleClick(7)} />
         <Square value={state[8]} onClick={() => handleClick(8)} />
       </div>
+      <User countX={xWins} countO={oWins} />
     </div>
   );
 };
