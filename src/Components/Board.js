@@ -245,7 +245,7 @@ export const Board = () => {
 
 
       {/* who's Turn */}
-       <div className="relative left-[17rem] -top-[19rem] text-2xl font-Belanosima">
+       <div className="absolute top-[10rem] right-12 sm:right-[5rem] xl:right-[25rem]  text-2xl font-Belanosima">
          <p>who's Turn: {whosTurn}</p>
        </div>
 
