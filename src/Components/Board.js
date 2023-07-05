@@ -34,15 +34,10 @@ export const Board = () => {
     winningLogic(copyState)
   };
 
-
   const onClick = () =>{
     setIsOpen(false)
   }
 
-
-
-
-  
   const [users, setUsers] = useState([])
   const addUsers = (user) => {
     if (users.length < 2) {
@@ -245,7 +240,7 @@ export const Board = () => {
 
 
       {/* who's Turn */}
-       <div className="absolute top-[10rem] right-12 sm:right-[5rem] xl:right-[25rem]  text-2xl font-Belanosima">
+       <div className="absolute top-[7rem] sm:top-[10rem] right-12 sm:right-[5rem] lg:right-[20rem] xl:right-[25rem]  text-2xl font-Belanosima">
          <p>who's Turn: {whosTurn}</p>
        </div>
 
